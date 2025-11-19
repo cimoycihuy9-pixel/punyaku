@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAKOSLOT ANTI RUNGKAT</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+<style>
+/* ===== BODY & BACKGROUND ===== */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to right, #2b0000 0%, #4b1a00 25%, #A0522D 50%, #4b1a00 75%, #2b0000 100%);
+    color: #FFFACD;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ===== ANIMASI API-API DI BACKGROUND ===== */
+.fire {
+    position: absolute;
+    width: 20px;
+    height: 40px;
+    background: radial-gradient(circle at 50% 50%, #FFD700, #FF4500 70%, transparent);
+    border-radius: 50%;
+    opacity: 0.7;
+    animation: fireMove linear infinite;
+}
+
+@keyframes fireMove {
+    0% { transform: translateY(100vh) scale(0.3); opacity: 0; }
+    30% { opacity: 1; }
+    100% { transform: translateY(-50px) scale(1); opacity: 0; }
+}
+
+/* ===== FLOATING COINS / SLOT ICONS ===== */
+.slot-icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    animation: floatIcon linear infinite;
+}
+
+@keyframes floatIcon {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+}
+
+/* ===== HEADER ===== */
+.header {
+    font-family: 'Playfair Display', serif;
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    text-align: center;
+    color: #FFD700;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px #000;
+    border-bottom: 2px solid #FFD700;
+    z-index: 2;
+    position: relative;
+}
+
+/* ===== MARQUEE ===== */
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(0,0,0,0.6);
+    border-top: 2px solid #FFD700;
+    border-bottom: 2px solid #FFD700;
+    padding: 10px 0;
+}
+
+.marquee-text {
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 24px;
+    font-weight: 600;
+    animation: marquee 35s linear infinite;
+    text-shadow: 1px 1px 2px #000;
+}
+
+.marquee-text span {
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.red { color: #FF4500; }
+.green { color: #ADFF2F; }
+
+@keyframes marquee {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* ===== KONTAINER ARTIKEL ===== */
+.container {
+    width: 90%;
+    max-width: 750px;
+    margin: 30px auto;
+    position: relative;
+    z-index: 2;
+}
+
+/* Bingkai artikel */
+.artikel-bingkai {
+    padding: 20px;
+    border-radius: 12px;
+    border: 3px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(45deg, #FF4500, #A0522D, #FFD700);
+    background: rgba(0,0,0,0.6); /* tetap transparan tapi tidak blur */
+    margin-bottom: 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.artikel-bingkai:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(255,215,0,0.3);
+}
+
+/* H2 & P */
+h2 {
+    font-family: 'Playfair Display', serif;
+    color: #FFD700;
+    margin-bottom: 12px;
+    text-shadow: 1px 1px 2px #000;
+    letter-spacing: 1px;
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #FFFACD;
+    text-shadow: 0.5px 0.5px 1px #000;
+}
+
+/* Links */
+a {
+    color: #FF6347;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-shadow: 0 0 5px #FFD700;
+}
+
+/* ===== GAMBAR DI BAWAH ===== */
+.artikel-gambar {
+    display: block;
+    margin: 20px auto;
+    border-radius: 12px;
+    border: 3px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(45deg, #FF4500, #A0522D, #FFD700);
+    max-width: 100%;
+}
+
+/* ===== POPUP WELCOME ===== */
+.popup-overlay {
+    position: fixed;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4); /* overlay semi transparan */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup {
+    background: linear-gradient(135deg, #2b0000, #A0522D, #FFD700);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    color: #FFFACD;
+    max-width: 400px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    animation: popupScale 0.5s ease;
+}
+
+@keyframes popupScale {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.popup button {
+    background: #FFD700;
+    color: #2b0000;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    margin-top: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.popup button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #FFD700;
+}
+</style>
+</head>
+<body>
+
+<!-- FLOATING SLOT ICONS -->
+<img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" class="slot-icon" style="left:10%; animation-duration: 10s;">
+<img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" class="slot-icon" style="left:40%; animation-duration: 12s;">
+<img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" class="slot-icon" style="left:70%; animation-duration: 15s;">
+
+<!-- ANIMASI API-API -->
+<div class="fire" style="left:15%; animation-duration: 6s;"></div>
+<div class="fire" style="left:35%; animation-duration: 8s;"></div>
+<div class="fire" style="left:60%; animation-duration: 5s;"></div>
+<div class="fire" style="left:80%; animation-duration: 7s;"></div>
+
+<!-- HEADER -->
+<div class="header">
+MAKOSLOT : JACKPOT SETIAP HARI, CUKUP BERMODAL JEMPOL DAN DEPOSIT MINIM
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee-container">
+    <span class="marquee-text">
+        <span class="red">SELAMAT DATANG DI MAKOSLOT →</span>
+        <span class="green">RASAKAN SENSASI BERMAIN DI MAKOSLOT</span>
+    </span>
+</div>
+
+<!-- ARTIKEL LENGKAP -->
+<div class="container">
+    <div class="artikel-bingkai">
+        <h2>Mengenal Makoslot: Platform Slot Online Terpercaya</h2>
+        <p>
+            <a href="https://hdrmill.com/">MAKOSLOT</a> adalah salah satu platform permainan slot online yang semakin populer di kalangan penggemar judi daring. Dengan berbagai pilihan permainan yang menarik dan sistem keamanan terjamin, Makoslot memberikan pengalaman bermain yang menyenangkan bagi semua penggunanya.
+        </p>
+    </div>
+
+    <div class="artikel-bingkai">
+        <h2>Keunggulan Makoslot</h2>
+        <p>
+            Salah satu alasan banyak pemain memilih Makoslot adalah kemudahan dalam mengakses platform ini. Pengguna bisa langsung melakukan 
+            <a href="https://hdrmill.com/">MAKOSLOT LOGIN</a> untuk memulai permainan kapan saja. Sistem login yang cepat dan aman memastikan bahwa data pribadi pemain tetap terlindungi. Selain itu, Makoslot menyediakan berbagai macam slot dari provider ternama, sehingga setiap pemain bisa menemukan permainan yang sesuai dengan selera mereka.
+        </p>
+    </div>
+
+    <div class="artikel-bingkai">
+        <h2>Cara Melakukan Makoslot Daftar</h2>
+        <p>
+            Bagi pemain baru, proses <a href="https://hdrmill.com/">MAKO SLOT DAFTAR</a> sangat mudah dan cepat. Cukup mengisi beberapa data pribadi, membuat username dan password, maka akun sudah siap digunakan untuk login dan mulai bermain.
+        </p>
+    </div>
+
+    <div class="artikel-bingkai">
+        <h2>Kemudahan Makoslot Login</h2>
+        <p>
+            Setelah melakukan pendaftaran, pengguna dapat dengan mudah melakukan <a href="https://hdrmill.com/">MAKO SLOT LOGIN</a> kapan saja, baik melalui desktop maupun perangkat mobile. Sistem login yang responsif membuat pemain tidak perlu menunggu lama untuk menikmati permainan favorit mereka.
+        </p>
+    </div>
+
+    <div class="artikel-bingkai">
+        <h2>Informasi Tambahan</h2>
+        <p>
+            Di era digital modern, berbagai jenis layanan dan aplikasi berbasis online semakin mudah
+            diakses hanya dengan menggunakan perangkat seluler dan koneksi internet. Pengguna dapat
+            menikmati berbagai bentuk hiburan ataupun layanan informasi secara cepat dan praktis,
+            sesuai kebutuhan masing-masing.
+        </p>
+        <p>
+            Banyak platform menawarkan fitur tambahan, kenyamanan akses, serta kemudahan penggunaan,
+            sehingga masyarakat dapat memilih layanan yang sesuai dengan preferensi atau tujuan mereka.
+            Meski akses semakin mudah, pengguna tetap disarankan untuk menggunakan layanan secara bijak,
+            memahami ketentuan yang berlaku, dan menjaga keamanan data pribadi.
+        </p>
+    </div>
+
+    <!-- Gambar di bawah -->
+    <img src="file:///C:/Users/makoc/Downloads/ai-edited-image-1763267597949.jpg" class="artikel-gambar" alt="Makoslot Image">
+</div>
+
+<!-- POPUP WELCOME -->
+<div class="popup-overlay" id="popup">
+    <div class="popup">
+        <h2>Selamat Datang di Makoslot!</h2>
+        <p>Dapatkan bonus jackpot harianmu sekarang juga!</p>
+        <button onclick="window.location.href='https://hdrmill.com/'">Mulai Bermain</button>
+    </div>
+</div>
+
+<script>
+/* ===== SHOW POPUP AFTER 1.5s ===== */
+window.onload = function() {
+    setTimeout(function() {
+        document.getElementById('popup').classList.add('active');
+    }, 1500);
+};
+</script>
+
+</body>
+</html>
